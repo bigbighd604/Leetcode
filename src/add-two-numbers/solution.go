@@ -5,9 +5,19 @@ import (
   "flag"
 )
 
+// Link list
 type ListNode struct {
   val int
   next *ListNode
+}
+
+func getValueAndMove(l **ListNode) int {
+  r := 0
+  if *l != nil {
+    r = (*l).val
+    *l = (*l).next
+  }
+  return r
 }
 
 func addTwoNumbers(l1, l2 *ListNode) *ListNode {
@@ -16,31 +26,12 @@ func addTwoNumbers(l1, l2 *ListNode) *ListNode {
   l1Cursor := l1
   l2Cursor := l2
   rCursor := &result // Pointer to pointer of ListNode
-  for l1Cursor != nil && l2Cursor != nil {
-    sum := l1Cursor.val + l2Cursor.val + carryOver
+  for l1Cursor != nil || l2Cursor != nil {
+    l1Val := getValueAndMove(&l1Cursor)
+    l2Val := getValueAndMove(&l2Cursor)
+    sum := l1Val + l2Val + carryOver
     carryOver = sum / 10
     tempSum := sum % 10
-    l1Cursor, l2Cursor = l1Cursor.next, l2Cursor.next
-    tNode := new(ListNode)
-    tNode.val = tempSum
-    *rCursor = tNode
-    rCursor = &(tNode.next)
-  }
-  for l1Cursor != nil {
-    sum := l1Cursor.val + carryOver
-    carryOver = sum / 10
-    tempSum := sum % 10
-    l1Cursor = l1Cursor.next
-    tNode := new(ListNode)
-    tNode.val = tempSum
-    *rCursor = tNode
-    rCursor = &(tNode.next)
-  }
-  for l2Cursor != nil {
-    sum := l2Cursor.val + carryOver
-    carryOver = sum / 10
-    tempSum := sum % 10
-    l2Cursor = l2Cursor.next
     tNode := new(ListNode)
     tNode.val = tempSum
     *rCursor = tNode

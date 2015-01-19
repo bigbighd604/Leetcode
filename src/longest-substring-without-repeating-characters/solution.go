@@ -14,13 +14,13 @@ func longestSubString2(s string) int {
   last_repeat_pos := -1
 
   for i, char := range s {
-    if table[int(char)] != -1 && last_repeat_pos < table[int(char)] {
-      last_repeat_pos = table[int(char)]
+    if table[char] != -1 && last_repeat_pos < table[char] {
+      last_repeat_pos = table[char]
     }
     if i - last_repeat_pos > max {
       max = i - last_repeat_pos
     }
-    table[int(char)] = i
+    table[char] = i
   }
   return max
 }

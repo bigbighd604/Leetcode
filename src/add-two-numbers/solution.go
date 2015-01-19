@@ -11,44 +11,48 @@ type ListNode struct {
 }
 
 func addTwoNumbers(l1, l2 *ListNode) *ListNode {
-  result := new(ListNode) // Head
+  var result *ListNode = nil // Head
   carryOver := 0
   l1Cursor := l1
   l2Cursor := l2
-  rCursor := result
+  rCursor := &result // Pointer to pointer of ListNode
   for l1Cursor != nil && l2Cursor != nil {
     sum := l1Cursor.val + l2Cursor.val + carryOver
     carryOver = sum / 10
     tempSum := sum % 10
     l1Cursor, l2Cursor = l1Cursor.next, l2Cursor.next
-    rCursor.next = new(ListNode)
-    rCursor.next.val = tempSum
-    rCursor = rCursor.next
+    tNode := new(ListNode)
+    tNode.val = tempSum
+    *rCursor = tNode
+    rCursor = &(tNode.next)
   }
   for l1Cursor != nil {
     sum := l1Cursor.val + carryOver
     carryOver = sum / 10
     tempSum := sum % 10
     l1Cursor = l1Cursor.next
-    rCursor.next = new(ListNode)
-    rCursor.next.val = tempSum
-    rCursor = rCursor.next
+    tNode := new(ListNode)
+    tNode.val = tempSum
+    *rCursor = tNode
+    rCursor = &(tNode.next)
   }
   for l2Cursor != nil {
     sum := l2Cursor.val + carryOver
     carryOver = sum / 10
     tempSum := sum % 10
     l2Cursor = l2Cursor.next
-    rCursor.next = new(ListNode)
-    rCursor.next.val = tempSum
-    rCursor = rCursor.next
+    tNode := new(ListNode)
+    tNode.val = tempSum
+    *rCursor = tNode
+    rCursor = &(tNode.next)
   }
   if carryOver > 0 {
-    rCursor.next = new(ListNode)
-    rCursor.next.val = carryOver
+    tNode := new(ListNode)
+    tNode.val = carryOver
+    *rCursor = tNode
   }
 
-  return result.next
+  return result
 }
 
 

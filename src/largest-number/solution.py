@@ -41,9 +41,8 @@ class Solution:
         # numStr = map(str, numStr)
         numStr = [str(i) for i in num]
         sortedStr = sorted(numStr, cmp=self.compareStr, reverse=True)
-        for item in sortedStr:
-            if item != '0':
-                return ''.join(sortedStr)
+        if sortedStr[0] != '0':
+            return ''.join(sortedStr)
         # catch the all '0' case
         return '0'
 

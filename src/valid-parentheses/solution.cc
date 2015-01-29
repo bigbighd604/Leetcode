@@ -51,8 +51,12 @@ class Solution {
             }
         }
         // There is left overs.
-        if (stack.size() >0) return false;
-        return true;
+        // if (stack.size() >0) return false;
+        // empty() is preferred comparing size() for containers, because
+        // empty() is guaranteed constant O(1) time, per:
+        // http://stackoverflow.com/questions/743197/size-vs-empty-in-vector-why-empty-is-preferred
+        if (stack.empty()) return true;
+        return false;
     }
 };
 
